@@ -1,0 +1,90 @@
+.button1 {
+    border: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    z-index: 1;
+}
+
+#mainbt.button1 {
+    opacity: 0;
+    background-color: white;
+    color: black;
+}
+
+#mainbt.button1:hover {
+    opacity: 1.0;
+    background-color: #373de7;
+    color: white;
+}
+
+#demo {
+    z-index: 0;
+}
+
+#main_title {
+    opacity: 0;
+    z-index: 2;
+    font-family: PixelFont;
+    font-size: 180px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #000000;
+    transition-duration: 0.4s;
+}
+
+#main_title:hover {
+    opacity: 1;
+    animation: colorChange 2.5s infinite;
+}
+
+@keyframes colorChange {
+    0% {
+        color: rgb(201, 24, 24);
+    }
+
+    10% {
+        color: rgb(255, 0, 179);
+    }
+
+    20% {
+        color: rgb(159, 22, 201);
+    }
+
+    40% {
+        color: rgb(35, 22, 214);
+    }
+
+    30% {
+        color: rgb(16, 182, 223);
+    }
+
+    50% {
+        color: rgb(28, 211, 138);
+    }
+
+    60% {
+        color: rgb(240, 240, 12);
+    }
+
+    70% {
+        color: orange;
+    }
+
+    80% {
+        color: rgb(255, 102, 0);
+    }
+
+    90% {
+        color: rgb(255, 77, 0);
+    }
+
+    100% {
+        color: red;
+    }
+}

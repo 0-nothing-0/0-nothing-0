@@ -1,10 +1,12 @@
-#include <cstdio>
 #include <iostream>
-#include <windows.h>
+#include <stdio.h>
+
+//#include <windows.h>
 #include <unistd.h>
-#define qdo 262 
+#define qdo 262
 #define qre 294
-#define qmi 330     //qÇ°×ºÎªµÍÒô£¬1ºó×ºÎª¸ßÒô£¬sÇ°×ºÎª°ëÒô½× 
+#define qmi                                                                    \
+  330 // qÇ°×ºÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½×ºÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sÇ°×ºÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define qfa 349
 #define qso 392
 #define qla 440
@@ -39,49 +41,97 @@
 #define sso1 1661
 #define sla1 1865
 using namespace std;
-int paishu=69;
-int all[]={
-0,1,qso,1,qla,1,do,1,re,2,mi,1,so,1,mi,1,do,1,re,3,do,1,so,1,mi,2,do,1,so,1,re,2,do,1,so,1,qsi,2,do,1,qsi,1,qso,2,qmi,1,qso,2,
-0,1,qso,1,qla,1,do,1,re,2,mi,1,so,1,mi,1,do,1,re,3,do,1,so,1,mi,2,do,1,so,1,re,2,do,1,so,1,qsi,2,qso,1,qla,1,do,1,so,2,re,2,
-mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,do,1,qso,1,re,3,qsi,1,do,1,mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,do,1,re,1,qsi,2,do,1,qso,2,mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,
-do,1,re,3,do,1,so,1,re,2,do,1,so,1,re,2,do,1,so,1,re,1,do,1,so,1,re,1,do,1,so,1,re,1,do,1,so,1,
-mi,1,so,1,re,1,mi,-1,2,re,-5,2,do,1,re,1,mi,1,so,1,re,1,mi,-1,2,re,-3,2,do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-5,2,do,1,re,1,mi,1,so,1,re,1,qso,-1,2,qla,-3,2,
-do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-5,2,do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-3,2,do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-3,2,do,1,re,1,do,1,mi,1,so,1,mi,1,so,1,mi,1,so,1,mi,1,so,1,
--1,2,//Change the Bit
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,1,0,1,re,1,0,1,qso,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,qso,1,0,1,qla,1,0,1,do,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,1,0,1,re,1,0,1,qso,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,qso,1,0,1,do,1,0,1,re,1,0,1,-1,1,//Change to the normal bit
-//Second repeat
-0,1,qso,1,qla,1,do,1,re,2,mi,1,so,1,mi,1,do,1,re,3,do,1,so,1,mi,2,do,1,so,1,re,2,do,1,so,1,qsi,2,do,1,qsi,1,qso,2,qmi,1,qso,2,
-0,1,qso,1,qla,1,do,1,re,2,mi,1,so,1,mi,1,do,1,re,3,do,1,so,1,mi,2,do,1,so,1,re,2,do,1,so,1,qsi,2,qso,1,qla,1,do,1,so,2,re,2,
-mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,do,1,qso,1,re,3,qsi,1,do,1,mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,do,1,re,1,qsi,2,do,1,qso,2,mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,
-do,1,re,3,do,1,so,1,re,2,do,1,so,1,re,2,do,1,so,1,re,1,do,1,so,1,re,1,do,1,so,1,re,1,do,1,so,1,
-mi,1,so,1,re,1,mi,-1,2,re,-5,2,do,1,re,1,mi,1,so,1,re,1,mi,-1,2,re,-3,2,do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-5,2,do,1,re,1,mi,1,so,1,re,1,qso,-1,2,qla,-3,2,
-do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-5,2,do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-3,2,do,1,re,1,do,1,mi,1,so,1,re,1,mi,-1,2,re,-3,2,do,1,re,1,do,1,mi,1,so,1,mi,1,so,1,mi,1,so,1,mi,1,so,1,
--1,2,//Change the Bit
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,1,0,1,re,1,0,1,qso,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,qso,1,0,1,qla,1,0,1,do,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,1,0,1,re,1,0,1,qso,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,mi,1,0,1,mi,1,0,1,do,1,0,1,re,1,0,3,re,1,0,2,re,1,0,2,do,1,0,1,re,1,0,1,so,1,0,1,mi,1,0,3,mi,1,0,2,mi,1,0,2,so,2,la,1,so,1,re,1,0,1,
-mi,1,0,3,mi,1,0,2,mi,1,0,2,qso,1,0,1,do,1,0,1,re,1,0,1,-1,1,//Change to the normal bit
-mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,do,1,qso,1,re,2,qsi,1,do,1,mi,1,do,1,qso,1,re,1,re,1,mi,1,so,1,mi,2,do,1,re,1,qsi,2,do,1,qso,2,mi,1,do,1,qso,1,re,2,mi,1,so,1,mi,2,do,1,re,3,do,1,so,1,re,2,do,1,so,1,re,2,do,1,so,1,do,1,so,1,re,1,do,1,so,1,re,1,do,1,so,4
+int paishu = 69;
+int all[] = {
+    0, 1, qso, 1, qla, 1, do, 1, re, 2, mi, 1, so, 1, mi, 1, do, 1, re, 3, do,
+    1, so, 1, mi, 2, do, 1, so, 1, re, 2, do, 1, so, 1, qsi, 2, do, 1, qsi, 1,
+    qso, 2, qmi, 1, qso, 2, 0, 1, qso, 1, qla, 1, do, 1, re, 2, mi, 1, so, 1,
+    mi, 1, do, 1, re, 3, do, 1, so, 1, mi, 2, do, 1, so, 1, re, 2, do, 1, so, 1,
+    qsi, 2, qso, 1, qla, 1, do, 1, so, 2, re, 2, mi, 1, do, 1, qso, 1, re, 2,
+    mi, 1, so, 1, mi, 2, do, 1, qso, 1, re, 3, qsi, 1, do, 1, mi, 1, do, 1, qso,
+    1, re, 2, mi, 1, so, 1, mi, 2, do, 1, re, 1, qsi, 2, do, 1, qso, 2, mi, 1,
+    do, 1, qso, 1, re, 2, mi, 1, so, 1, mi, 2, do, 1, re, 3, do, 1, so, 1, re,
+    2, do, 1, so, 1, re, 2, do, 1, so, 1, re, 1, do, 1, so, 1, re, 1, do, 1, so,
+    1, re, 1, do, 1, so, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -5, 2, do, 1,
+    re, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -3, 2, do, 1, re, 1, do, 1, mi,
+    1, so, 1, re, 1, mi, -1, 2, re, -5, 2, do, 1, re, 1, mi, 1, so, 1, re, 1,
+    qso, -1, 2, qla, -3, 2, do, 1, re, 1, do, 1, mi, 1, so, 1, re, 1, mi, -1, 2,
+    re, -5, 2, do, 1, re, 1, do, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -3, 2,
+    do, 1, re, 1, do, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -3, 2, do, 1, re,
+    1, do, 1, mi, 1, so, 1, mi, 1, so, 1, mi, 1, so, 1, mi, 1, so, 1, -1,
+    2, // Change the Bit
+    mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi, 1, 0, 1, do, 1, 0,
+    1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1, re, 1, 0, 1, so, 1,
+    0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la, 1, so, 1, re, 1, 0,
+    1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 1, 0, 1, re, 1, 0, 1, qso, 1,
+    0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi, 1, 0, 1, do,
+    1, 0, 1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1, re, 1, 0, 1,
+    so, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la, 1, so, 1, re,
+    1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, qso, 1, 0, 1, qla, 1, 0, 1,
+    do, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi, 1, 0,
+    1, do, 1, 0, 1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1, re, 1,
+    0, 1, so, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la, 1, so,
+    1, re, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 1, 0, 1, re, 1,
+    0, 1, qso, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi,
+    1, 0, 1, do, 1, 0, 1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1,
+    re, 1, 0, 1, so, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la,
+    1, so, 1, re, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, qso, 1, 0, 1,
+    do, 1, 0, 1, re, 1, 0, 1, -1, 1, // Change to the normal bit
+    // Second repeat
+    0, 1, qso, 1, qla, 1, do, 1, re, 2, mi, 1, so, 1, mi, 1, do, 1, re, 3, do,
+    1, so, 1, mi, 2, do, 1, so, 1, re, 2, do, 1, so, 1, qsi, 2, do, 1, qsi, 1,
+    qso, 2, qmi, 1, qso, 2, 0, 1, qso, 1, qla, 1, do, 1, re, 2, mi, 1, so, 1,
+    mi, 1, do, 1, re, 3, do, 1, so, 1, mi, 2, do, 1, so, 1, re, 2, do, 1, so, 1,
+    qsi, 2, qso, 1, qla, 1, do, 1, so, 2, re, 2, mi, 1, do, 1, qso, 1, re, 2,
+    mi, 1, so, 1, mi, 2, do, 1, qso, 1, re, 3, qsi, 1, do, 1, mi, 1, do, 1, qso,
+    1, re, 2, mi, 1, so, 1, mi, 2, do, 1, re, 1, qsi, 2, do, 1, qso, 2, mi, 1,
+    do, 1, qso, 1, re, 2, mi, 1, so, 1, mi, 2, do, 1, re, 3, do, 1, so, 1, re,
+    2, do, 1, so, 1, re, 2, do, 1, so, 1, re, 1, do, 1, so, 1, re, 1, do, 1, so,
+    1, re, 1, do, 1, so, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -5, 2, do, 1,
+    re, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -3, 2, do, 1, re, 1, do, 1, mi,
+    1, so, 1, re, 1, mi, -1, 2, re, -5, 2, do, 1, re, 1, mi, 1, so, 1, re, 1,
+    qso, -1, 2, qla, -3, 2, do, 1, re, 1, do, 1, mi, 1, so, 1, re, 1, mi, -1, 2,
+    re, -5, 2, do, 1, re, 1, do, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -3, 2,
+    do, 1, re, 1, do, 1, mi, 1, so, 1, re, 1, mi, -1, 2, re, -3, 2, do, 1, re,
+    1, do, 1, mi, 1, so, 1, mi, 1, so, 1, mi, 1, so, 1, mi, 1, so, 1, -1,
+    2, // Change the Bit
+    mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi, 1, 0, 1, do, 1, 0,
+    1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1, re, 1, 0, 1, so, 1,
+    0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la, 1, so, 1, re, 1, 0,
+    1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 1, 0, 1, re, 1, 0, 1, qso, 1,
+    0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi, 1, 0, 1, do,
+    1, 0, 1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1, re, 1, 0, 1,
+    so, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la, 1, so, 1, re,
+    1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, qso, 1, 0, 1, qla, 1, 0, 1,
+    do, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi, 1, 0,
+    1, do, 1, 0, 1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1, re, 1,
+    0, 1, so, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la, 1, so,
+    1, re, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 1, 0, 1, re, 1,
+    0, 1, qso, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, mi, 1, 0, 1, mi,
+    1, 0, 1, do, 1, 0, 1, re, 1, 0, 3, re, 1, 0, 2, re, 1, 0, 2, do, 1, 0, 1,
+    re, 1, 0, 1, so, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, so, 2, la,
+    1, so, 1, re, 1, 0, 1, mi, 1, 0, 3, mi, 1, 0, 2, mi, 1, 0, 2, qso, 1, 0, 1,
+    do, 1, 0, 1, re, 1, 0, 1, -1, 1, // Change to the normal bit
+    mi, 1, do, 1, qso, 1, re, 2, mi, 1, so, 1, mi, 2, do, 1, qso, 1, re, 2, qsi,
+    1, do, 1, mi, 1, do, 1, qso, 1, re, 1, re, 1, mi, 1, so, 1, mi, 2, do, 1,
+    re, 1, qsi, 2, do, 1, qso, 2, mi, 1, do, 1, qso, 1, re, 2, mi, 1, so, 1, mi,
+    2, do, 1, re, 3, do, 1, so, 1, re, 2, do, 1, so, 1, re, 2, do, 1, so, 1, do,
+    1, so, 1, re, 1, do, 1, so, 1, re, 1, do, 1, so, 4
 
-} ;
-void beep(int b,int a){
-	int em=60000/(paishu*a);
-	if(b==0) Sleep(em);
-	else Beep(b,em);
-	return;
+};
+void beep(int b, int a) {
+  int em = 60000 / (paishu * a);
+  if (b == 0)
+    sleep(em);
+  else
+    beep(b, em);
+  return;
 }
-int main(){
-	int i=0;
-	while (all[i]!=-1){
-		beep(all[i],all[i+1]);
-		i+=2;
-	}
-	return 0;
+int main() {
+  int i = 0;
+  while (all[i] != -1) {
+    beep(all[i], all[i + 1]);
+    i += 2;
+  }
+  return 0;
 }
