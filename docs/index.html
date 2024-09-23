@@ -8,12 +8,15 @@
 <title>Rayson says "Hello!" to you</title>
 
 <head>
+	<meta name="referrer" content="no-referrer">
 	<style>
 		@font-face {
 			font-family: 'PixelFont';
 			src: url("Pixel.ttf");
 		}
 	</style>
+	<script src="ark.js">
+	</script>
 </head>
 
 <body>
@@ -47,6 +50,46 @@
 		About Me
 	</button>
 	<h1 id="main_title" class="text-center text-nowrap">It's Rayson!</h1>
+	<div>
+		<button id="ARKbt" class="btn btn-primary button1 ARK" type="button" onclick='changeTo();'>
+			Arknights Operators
+		</button>
+		<div id="input_bar" class="ARK" style="display: none;">
+			<div class="row">
+				<div class="col-6">
+					<input id="op_name" type="text" class="form-control" placeholder="输入干员代号" name="email">
+				</div>
+				<div class="col-3">
+					<button id="search" onclick="search()" class="btn btn-dark">查询</button>
+				</div>
+				<div class="col-3">
+					<button id="random" onclick="random()" class="btn btn-dark">随机</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- 模态 -->
+	<div class="modal" id="myModal" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- 模态标题 -->
+				<div class="modal-header">
+					<h4 class="modal-title">You got:</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closemodal()"></button>
+				</div>
+
+				<!-- 模态主体 -->
+				<div class="modal-body">
+					<a id=potrait href="https://prts.wiki/w/"></a>
+				</div>
+
+				<!-- 模态页脚 -->
+			</div>
+		</div>
+	</div>
+	</div>
 	<!-- 轮播 -->
 	<div id="demo" class="carousel slide" data-bs-ride="carousel">
 
